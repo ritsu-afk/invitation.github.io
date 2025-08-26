@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Jholan Grand Debut</title>
+  
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+ 
+    <section class="hero">
+        <div class="crown"></div>
+        <h1></h1>
+        <div class="subtitle"></div>
+        <h2 style="font-size: 3rem; color: #b2e211; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-bottom: 1rem;"></h2>
+        <div style="font-size: 1.1rem; color: rgba(255,255,255,0.9);"></div>
+        <div class="scroll-hint">
+            ↓ Scroll to explore ↓<br>
+              click icon to see 
+                    more.
+        </div>
+    </section>
+
+
+    <div class="container">
+         <div class="card__container">
+            <article class="card__article">
+               <img src="https://cdn-icons-png.flaticon.com/512/6620/6620696.png" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <span class="card__description">18 ROSE'S</span>
+                  <h2 class="card__title">(click to see the list.)</h2>
+                <button class="card__btn" onclick="window.location.href='roses.html'">See more..</button>
+
+               </div>
+            </article>
+
+            <article class="card__article">
+               <img src="https://cdn-icons-png.flaticon.com/512/5839/5839875.png" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <span class="card__description">18 CANDLE'S</span>
+                  <h2 class="card__title">(click to see the list.)</h2>
+                 <button class="card__btn" onclick="window.location.href='candle.html'">See more..</button>
+               </div>
+            </article>
+
+    
+      
+      <section class="section">
+        <div class="section-card">
+            <h2>👗 Dress Code</h2>
+            <div class="dresscode">
+                <div class="dresscode-title">Casual Attire</div>
+                <div style="margin-bottom: 1.5rem; color: #666;">Please avoid wearing yellow</div>
+                <div class="dresscode-item">
+                    <div class="color-swatch" style="background: linear-gradient(45deg, #667eea, #f5fd06);"></div>
+                    <span>formal casual for boys</span>
+                </div>
+                <div class="dresscode-item">
+                    <div class="color-swatch" style="background: linear-gradient(45deg, #f093fb, #f5576c);"></div>
+                    <span>Dress casual for girls</span>
+                </div>
+                <div class="dresscode-item">
+                    <div class="color-swatch" style="background: #2c2c2c;"></div>
+                    <span>Classic Black</span>
+                </div>
+            </div>
+        </div>
+    </section>  
+
+
+    <footer class="footer">
+        <div class="footer-message">
+            "The best is yet to come as I step into adulthood"
+        </div>
+        <div class="footer-signature">
+            With love,<br>Jholan Herrera ✨
+        </div>
+    </footer>
+
+    <script>
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+
+        document.querySelectorAll('.section-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        document.querySelectorAll('.rsvp-btn').forEach(btn => {
+            btn.addEventListener('touchstart', () => {
+                btn.style.transform = 'translateY(0px) scale(0.98)';
+            });
+            
+            btn.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    btn.style.transform = '';
+                }, 100);
+            });
+        });
+
+
+        createParticles();
+
+        let sparkleTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(sparkleTimeout);
+            sparkleTimeout = setTimeout(() => {
+           
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.width = '4px';
+                sparkle.style.height = '4px';
+                sparkle.style.background = 'rgba(255, 255, 255, 0.9)';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1000';
+                sparkle.style.animation = 'fadeOut 1s ease-out forwards';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    document.body.removeChild(sparkle);
+                }, 1000);
+            }, 100);
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
