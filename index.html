@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    
+  
     <button class="admin-toggle" onclick="toggleAdmin()">📊</button>
 
     
@@ -21,6 +21,22 @@
             <p>❌ Declined: <span id="declinedCount">0</span></p>
             <hr style="margin: 10px 0;">
             <div id="responsesList"></div>
+        </div>
+    </div>
+
+    
+    <div class="google-form-modal" id="googleFormModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Jholan invitation</h3>
+                <span class="close-btn" onclick="closeGoogleForm()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <iframe id="googleFormIframe" src="" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+            <div class="modal-footer">
+                <button class="done-btn" onclick="formCompleted()">Done</button>
+            </div>
         </div>
     </div>
 
@@ -46,7 +62,7 @@
                 <button class="response-btn accept-btn" onclick="selectResponse('accept')">
                     Yes, I'll be there!
                 </button>
-                    <button class="response-btn decline-btn" id="declineBtn" onmouseover="moveDeclineButton()" onclick="moveDeclineButton('')">
+                    <button class="response-btn decline-btn" id="declineBtn" onmouseover="moveDeclineButton()" onclick="selectResponse('')">
                     Sorry, I can't make it
                 </button>
           </div>
@@ -60,6 +76,9 @@
             </div>
         </div>
     </div>
+
+
+   
 
     <script>
         let selectedResponse = '';
@@ -80,17 +99,44 @@
         function selectResponse(response) {
             selectedResponse = response;
 
+            if (response === 'accept') {
+                
+                showGoogleForm();
+            } else {
             
             
-            document.getElementById('responseButtons').style.display = 'none';
-            document.getElementById('nameForm').style.display = 'block';
-            
-            
-            setTimeout(() => {
-                document.getElementById('guestName').focus();
-            }, 300);
+            }
+        }
 
+        function showGoogleForm() {
+           
+            const googleFormUrl = "https://forms.gle/qeVUp291oqvH9U3v8";
+            document.getElementById('googleFormIframe').src = googleFormUrl;
+            document.getElementById('googleFormModal').style.display = 'block';
+            document.getElementById('responseButtons').style.display = 'none';
+        }
+
+        function closeGoogleForm() {
+            document.getElementById('googleFormModal').style.display = 'none';
+            document.getElementById('responseButtons').style.display = 'block';
+        }
+
+        function formCompleted() {
+     
+            document.getElementById('googleFormModal').style.display = 'none';
+          
+            showConfirmation('Guest', 'accept');
             
+     
+            const responseData = {
+                name: 'Anonymous (Google Form)',
+                response: 'accept',
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent.substring(0, 50) 
+            };
+            responses.push(responseData);
+            localStorage.setItem('invitationResponses', JSON.stringify(responses));
+            updateAdminPanel();
         }
 
        
@@ -130,7 +176,11 @@
 
             if (response === 'accept') {
                 iconDiv.textContent = '';
-                messageDiv.textContent = `Thank you, ${name}!`;
+                if (name === 'Guest') {
+                    messageDiv.textContent = `Thank you for your response!`;
+                } else {
+                    messageDiv.textContent = `Thank you, ${name}!`;
+                }
                 detailsDiv.innerHTML = `
                    you'll be joining Jholan's special day!<br><br>
                     <strong>What's Next:</strong><br>
@@ -191,6 +241,14 @@
             });
         });
 
+  
+        window.onclick = function(event) {
+            const modal = document.getElementById('googleFormModal');
+            if (event.target === modal) {
+                closeGoogleForm();
+            }
+        }
+
     
         createParticles();
         
@@ -201,5 +259,3 @@
     </script>
 </body>
 </html>
-
-
