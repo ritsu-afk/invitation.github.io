@@ -54,19 +54,6 @@
             }
         }
 
-        .crown-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: bounce 2s ease-in-out infinite;
-            filter: drop-shadow(0 4px 10px rgba(255, 215, 0, 0.5));
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-15px); }
-            60% { transform: translateY(-7px); }
-        }
-
         .invitation-title {
             font-size: 2.2rem;
             color: #121314;
@@ -718,5 +705,6 @@
         .section-card:nth-child(1) { animation-delay: 0.1s; }
         .section-card:nth-child(2) { animation-delay: 0.2s; }
      
+
 
 
