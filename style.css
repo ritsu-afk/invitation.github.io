@@ -337,7 +337,7 @@
         }
 
 .section-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(35, 11, 114, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 2.5rem 2rem;
@@ -425,4 +425,5 @@
         .section-card:nth-child(2) { animation-delay: 0.2s; }
 
         .section-card:nth-child(3) { animation-delay: 0.3s; }
+
 
