@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="style.css">
+    <title>You're Invited</title>
+    
+        
+</head>
+<body>
+
+    
+    <button class="admin-toggle" onclick="toggleAdmin()">📊</button>
+
+    
+    <div class="admin-panel" id="adminPanel">
+        <h4>Response Tracker</h4>
+        <div id="responseStats">
+            <p>✅ Accepted: <span id="acceptedCount">0</span></p>
+            <p>❌ Declined: <span id="declinedCount">0</span></p>
+            <hr style="margin: 10px 0;">
+            <div id="responsesList"></div>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="invitation-card">
+            <h1 class="invitation-title">You're Invited!</h1>
+            <div class="event-details">
+                <div class="note">note:</div>
+                <div class="descrip">this is a real invitation <br>please choose properly!</div>
+            </div>
+
+            <div class="question">Will you be able to join us?</div>
+
+            
+            <div class="name-form" id="nameForm">
+                <input type="text" class="name-input" id="guestName" placeholder="Please enter your full name" required>
+                <button class="submit-btn" onclick="submitResponse()">Submit Response</button>
+            </div>
+
+          
+            <div class="response-buttons" id="responseButtons">
+                <button class="response-btn accept-btn" onclick="selectResponse('accept')">
+                    Yes, I'll be there!
+                </button>
+                    <button class="response-btn decline-btn" id="declineBtn" onmouseover="moveDeclineButton()" onclick="selectResponse('')">
+                    Sorry, I can't make it
+                </button>
+          </div>
+
+           
+            <div class="response-confirmation" id="responseConfirmation">
+                <div class="confirmation-icon" id="confirmationIcon"></div>
+                <div class="confirmation-message" id="confirmationMessage"></div>
+                <div class="confirmation-details" id="confirmationDetails"></div>
+                <a href="#" class="view-invitation-btn" onclick="viewFullInvitation()">View Full Invitation</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedResponse = '';
+        let responses = JSON.parse(localStorage.getItem('invitationResponses') || '[]');
+
+            
+            function moveDeclineButton() {
+                var btn = document.getElementById('declineBtn');
+                var x = Math.random() * (window.innerWidth - btn.offsetWidth - 40);
+                var y = Math.random() * (window.innerHeight - btn.offsetHeight - 40);
+                btn.style.position = 'absolute';
+                btn.style.left = `${x}px`;
+                btn.style.top = `${y}px`;
+            }
+
+
+
+        function selectResponse(response) {
+            selectedResponse = response;
+
+            
+            
+            document.getElementById('responseButtons').style.display = 'none';
+            document.getElementById('nameForm').style.display = 'block';
+            
+            
+            setTimeout(() => {
+                document.getElementById('guestName').focus();
+            }, 300);
+
+            
+        }
+
+       
+        function submitResponse() {
+            const guestName = document.getElementById('guestName').value.trim();
+            
+            if (!guestName) {
+                alert('Please enter your name');
+                return;
+            }
+
+          
+            const responseData = {
+                name: guestName,
+                response: selectedResponse,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent.substring(0, 50) 
+            };
+
+            responses.push(responseData);
+            localStorage.setItem('invitationResponses', JSON.stringify(responses));
+
+            
+            document.getElementById('nameForm').style.display = 'none';
+            showConfirmation(guestName, selectedResponse);
+            
+          
+            updateAdminPanel();
+        }
+
+      
+        function showConfirmation(name, response) {
+            const confirmationDiv = document.getElementById('responseConfirmation');
+            const iconDiv = document.getElementById('confirmationIcon');
+            const messageDiv = document.getElementById('confirmationMessage');
+            const detailsDiv = document.getElementById('confirmationDetails');
+
+            if (response === 'accept') {
+                iconDiv.textContent = '';
+                messageDiv.textContent = `Thank you, ${name}!`;
+                detailsDiv.innerHTML = `
+                   you'll be joining Jholan's special day!<br><br>
+                    <strong>What's Next:</strong><br>
+                    • Check the entire invitation<br>
+                    • enjoy the day :> <br>
+                `;
+            } else {
+            
+                detailsDiv.innerHTML = `
+                 
+                `;
+            }
+
+            confirmationDiv.style.display = 'block';
+            
+            
+        }
+
+
+        function viewFullInvitation() {
+             window.location.href = 'home.html';
+        }
+
+     
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+            if (panel.style.display === 'block') {
+                updateAdminPanel();
+            }
+        }
+
+        function updateAdminPanel() {
+            const acceptedCount = responses.filter(r => r.response === 'accept').length;
+            const declinedCount = responses.filter(r => r.response === 'decline').length;
+            
+            document.getElementById('acceptedCount').textContent = acceptedCount;
+            document.getElementById('declinedCount').textContent = declinedCount;
+            
+            const responsesList = document.getElementById('responsesList');
+            responsesList.innerHTML = responses.slice(-5).reverse().map(r => 
+                `<div style="margin: 5px 0; padding: 5px; background: rgba(255,255,255,0.1); border-radius: 5px;">
+                    <strong>${r.name}</strong>: ${r.response === 'accept' ? '✅ Yes' : '❌ No'}<br>
+                    <small>${new Date(r.timestamp).toLocaleString()}</small>
+                </div>`
+            ).join('');
+            
+            if (responses.length > 5) {
+                responsesList.innerHTML += `<small>... and ${responses.length - 5} more responses</small>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('guestName').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    submitResponse();
+                }
+            });
+        });
+
+    
+        createParticles();
+        
+       
+        if (responses.length > 0) {
+            updateAdminPanel();
+        }
+    </script>
+</body>
+</html>
 
