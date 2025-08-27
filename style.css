@@ -19,6 +19,299 @@
             scroll-behavior: smooth;
         }
 
+         .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .invitation-card {
+            background: rgba(53, 68, 145, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .crown-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 4px 10px rgba(255, 215, 0, 0.5));
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        .invitation-title {
+            font-size: 2.2rem;
+            color: #121314;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .invitation-message {
+            font-size: 1.2rem;
+            color: #0c0a0a;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .event-details {
+            background: linear-gradient(135deg, rgba(33, 44, 106, 0.415), rgba(181, 208, 3, 0.218));
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .note {
+            font-size: 1.5rem;
+            color: #14161a;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+
+        .descrip {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            color: #87982a;
+            font-weight: 600;
+            margin: 2rem 0 1.5rem 0;
+        }
+
+        .response-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .response-btn {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accept-btn {
+            background-color: #667eea;
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .accept-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .decline-btn {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3);
+        }
+
+        .decline-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(240, 147, 251, 0.4);
+        }
+
+        .response-btn:active {
+            transform: translateY(0);
+        }
+
+        
+        .name-form {
+            display: none;
+            margin-bottom: 2rem;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                height: 0;
+                margin: 0;
+            }
+            to {
+                opacity: 1;
+                height: auto;
+                margin-bottom: 2rem;
+            }
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .name-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+       
+        .response-confirmation {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-message {
+            font-size: 1.3rem;
+            color: #2d333e;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-details {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .view-invitation-btn {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .view-invitation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(240, 147, 251, 0.3);
+        }
+
+
+        
+        @media (max-width: 480px) {
+            .invitation-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+            
+            .debutante-name {
+                font-size: 2.5rem;
+            }
+            
+            .invitation-title {
+                font-size: 1.8rem;
+            }
+            
+            .response-buttons {
+                flex-direction: column;
+            }
+        }
+
+    
+        .admin-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            max-width: 300px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .admin-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 0.8rem;
+        }
+  
  
         .particles {
             position: fixed;
@@ -351,7 +644,7 @@
 
 .dresscode {
             text-align: center;
-            background: linear-gradient(135deg, rgba(229, 245, 5, 0.2), rgba(102, 126, 234, 0.2));
+            background: linear-gradient(135deg, rgba(221, 236, 10, 0.596), rgba(102, 126, 234, 0.2));
             border-radius: 15px;
             padding: 2rem 1.5rem;
             margin: 2rem 0;
@@ -375,6 +668,7 @@
         .section-card.visible {
             transform: translateY(0);
             opacity: 1;
+           
         }
 
         .section-card h2 {
@@ -393,7 +687,7 @@
             transform: translateX(-50%);
             width: 50px;
             height: 2px;
-            background: linear-gradient(45deg, #667eea, #bfdf08);
+            background: linear-gradient(45deg, #667eea, #bae50c);
         }
 
 
@@ -423,7 +717,6 @@
     
         .section-card:nth-child(1) { animation-delay: 0.1s; }
         .section-card:nth-child(2) { animation-delay: 0.2s; }
-
-        .section-card:nth-child(3) { animation-delay: 0.3s; }
+     
 
 
