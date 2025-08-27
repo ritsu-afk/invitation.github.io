@@ -56,7 +56,7 @@
             <h2>👗 Dress Code</h2>
             <div class="dresscode">
                 <div class="dresscode-title">Casual Attire</div>
-                <div style="margin-bottom: 1.5rem; color: #666;">Please avoid wearing yellow</div>
+                <div style="margin-bottom: 1.5rem; color: #d0e708;">Please avoid wearing yellow</div>
                 <div class="dresscode-item">
                     <div class="color-swatch" style="background: linear-gradient(45deg, #667eea, #f5fd06);"></div>
                     <span>formal casual for boys</span>
@@ -115,18 +115,6 @@
             observer.observe(card);
         });
 
-        document.querySelectorAll('.rsvp-btn').forEach(btn => {
-            btn.addEventListener('touchstart', () => {
-                btn.style.transform = 'translateY(0px) scale(0.98)';
-            });
-            
-            btn.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    btn.style.transform = '';
-                }, 100);
-            });
-        });
-
 
         createParticles();
 
@@ -172,4 +160,5 @@
     </script>
 </body>
 </html>
+
 
